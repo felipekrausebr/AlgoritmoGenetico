@@ -1,0 +1,167 @@
+import random
+
+# ==========================================
+# CONFIGURAÇÕES
+# ==========================================
+
+TAMANHO_POPULACAO = 20
+TAMANHO_INDIVIDUO = 10
+GERACOES_MAX = 1000
+TAXA_MUTACAO = 0.1
+
+# Sequência secreta (alvo)
+SEQUENCIA_ALVO = sorted(random.sample(range(1, 21), 10))
+
+# ==========================================
+# FUNÇÕES AUXILIARES
+# ==========================================
+
+def criar_individuo():
+    """
+    Cria um indivíduo com:
+    - 10 números únicos
+    - entre 1 e 20
+    - ordenados
+    """
+    return sorted(random.sample(range(1, 21), TAMANHO_INDIVIDUO))
+
+
+def fitness(individuo):
+    """
+    Conta quantos números do indivíduo
+    estão presentes na sequência alvo.
+    """
+    return len(set(individuo) & set(SEQUENCIA_ALVO))
+
+
+def criar_populacao():
+    return [criar_individuo() for _ in range(TAMANHO_POPULACAO)]
+
+
+# ==========================================
+# SELEÇÃO (TORNEIO)
+# ==========================================
+
+def selecao_torneio(populacao):
+    """
+    Escolhe 2 indivíduos aleatórios
+    e retorna o melhor.
+    """
+    a = random.choice(populacao)
+    b = random.choice(populacao)
+
+    return a if fitness(a) > fitness(b) else b
+
+
+# ==========================================
+# CRUZAMENTO
+# ==========================================
+
+def cruzamento(pai1, pai2):
+    """
+    Cruzamento simples:
+    mistura genes dos pais.
+    """
+
+    ponto = random.randint(1, TAMANHO_INDIVIDUO - 1)
+
+    filho = pai1[:ponto] + pai2[ponto:]
+
+    # remove duplicados
+    filho = list(set(filho))
+
+    # completa caso fique menor que 10
+    while len(filho) < TAMANHO_INDIVIDUO:
+        numero = random.randint(1, 20)
+
+        if numero not in filho:
+            filho.append(numero)
+
+    return sorted(filho)
+
+
+# ==========================================
+# MUTAÇÃO
+# ==========================================
+
+def mutacao(individuo):
+
+    if random.random() < TAXA_MUTACAO:
+
+        posicao = random.randint(0, TAMANHO_INDIVIDUO - 1)
+
+        novo_numero = random.randint(1, 20)
+
+        while novo_numero in individuo:
+            novo_numero = random.randint(1, 20)
+
+        individuo[posicao] = novo_numero
+
+    return sorted(individuo)
+
+
+# ==========================================
+# ALGORITMO GENÉTICO
+# ==========================================
+
+def algoritmo_genetico():
+
+    populacao = criar_populacao()
+
+    melhor_individuo = None
+    melhor_fitness = 0
+
+    for geracao in range(GERACOES_MAX):
+
+        # ordena população pelo fitness
+        populacao = sorted(
+            populacao,
+            key=lambda x: fitness(x),
+            reverse=True
+        )
+
+        melhor_individuo = populacao[0]
+        melhor_fitness = fitness(melhor_individuo)
+
+        print(f"\nGeração {geracao}")
+        print("Melhor indivíduo:", melhor_individuo)
+        print("Fitness:", melhor_fitness)
+
+        # critério de parada
+        if melhor_fitness == TAMANHO_INDIVIDUO:
+            print("\n✅ SOLUÇÃO ENCONTRADA!")
+            break
+
+        nova_populacao = []
+
+        # elitismo -> mantém o melhor
+        nova_populacao.append(melhor_individuo)
+
+        while len(nova_populacao) < TAMANHO_POPULACAO:
+
+            # seleção
+            pai1 = selecao_torneio(populacao)
+            pai2 = selecao_torneio(populacao)
+
+            # cruzamento
+            filho = cruzamento(pai1, pai2)
+
+            # mutação
+            filho = mutacao(filho)
+
+            nova_populacao.append(filho)
+
+        populacao = nova_populacao
+
+    print("\n===================================")
+    print("Sequência alvo:", SEQUENCIA_ALVO)
+    print("Melhor solução:", melhor_individuo)
+    print("Fitness final:", melhor_fitness)
+    print("===================================")
+
+
+# ==========================================
+# EXECUÇÃO
+# ==========================================
+
+algoritmo_genetico()
