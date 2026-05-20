@@ -206,26 +206,8 @@ Algumas melhorias que podem ser implementadas futuramente:
 
 ---
 
-# 📁 Estrutura do Projeto
-
-```bash
-algoritmo-genetico/
-│
-├── main.py
-├── README.md
-└── requirements.txt
-```
-
----
-
 # 👨‍🎓 Autor
 
 Projeto desenvolvido por **Felipe Krause** para fins acadêmicos e aprendizado em Inteligência Artificial e Algoritmos Genéticos.
 
----
 
-# 📌 Considerações Finais
-
-Este projeto teve como objetivo aplicar na prática os conceitos vistos em sala de aula relacionados à Computação Evolutiva e Inteligência Artificial.
-
-A implementação permitiu compreender melhor como algoritmos inspirados na natureza podem ser utilizados para resolver problemas de busca e otimização.
