@@ -7,8 +7,7 @@ Projeto acadêmico desenvolvido utilizando conceitos de Algoritmos Genéticos pa
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Python-3.10-blue" />
-  <img src="https://img.shields.io/badge/Status-Concluído-green" />
+  <img src="https://img.shields.io/badge/Python-3-blue" />
   <img src="https://img.shields.io/badge/Projeto-Acadêmico-orange" />
 </p>
 
@@ -139,7 +138,7 @@ Isso garante que boas soluções não sejam perdidas durante a evolução.
 ## 1. Clone o repositório
 
 ```bash
-git clone https://github.com/seu-usuario/seu-repositorio.git
+git clone https://github.com/felipekrausebr/AlgoritmoGenetico.git
 ```
 
 ---
@@ -147,7 +146,7 @@ git clone https://github.com/seu-usuario/seu-repositorio.git
 ## 2. Acesse a pasta do projeto
 
 ```bash
-cd seu-repositorio
+cd AlgoritmoGenetico
 ```
 
 ---
@@ -155,12 +154,14 @@ cd seu-repositorio
 ## 3. Execute o projeto
 
 ```bash
-python main.py
+python Main
 ```
 
 ---
 
-# 📊 Exemplo de Saída
+O arquivo executável se chama `Main`, sem extensão. O projeto utiliza apenas a biblioteca padrão do Python. A sequência alvo é sorteada a cada execução; o algoritmo encerra ao encontrá-la ou ao atingir 1.000 gerações.
+
+# 📊 Exemplo ilustrativo de saída
 
 ```bash
 Geração 0
